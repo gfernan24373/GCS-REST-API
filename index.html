@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UAT Testin API</title>
+	<style>
+		* {
+			margin: 0;
+			font-family: 'Tahoma';
+			box-sizing: border-box;
+		}
+
+		.title {
+			text-align: center;
+			background: #eee;
+		}
+
+		.subtitle {
+			text-align: center;
+			margin: 20px auto;
+		}
+
+		.description {
+			text-align: center;
+		}
+
+		.task-list {
+			display: flex;
+			text-decoration: none;
+			list-style: none;
+			padding: 0;
+		}
+
+		.task-item, .task-item2 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 50%;
+			text-align: center;
+		}
+
+		.task-item {
+			font-weight: bold;
+			justify-content: center;
+			background: #eee;
+			padding: 18px;
+		}
+
+		.split-line {
+			display: flex;
+			justify-content: center;
+		}
+
+		.dots {
+			width: 20px;
+			height: 20px;
+			background: darkblue;
+			border: 2px solid #fff;
+			border-radius: 50%;
+		}
+
+		.dots + .dots {
+			margin-left: 5%;
+		}
+
+		pre {
+			text-align: left;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<header class="title">
+		<h1>GCS Restful API</h1>
+	</header>
+	<section class="test-one">
+		<div class="test-1">
+			<h2 class="subtitle">TEST 1</h2>
+			<p class="description">Card Activation (digital or physical cards)</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the activation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"transactionNumber": "1687233878",
+	"gencode": "Koaj_001",
+	"cardNumber": "",
+	"track2Data": "",
+	"amount": 20,
+	"note": "New testing activation API",
+	"reason": "",
+	"validityDate": "",
+	"mobileNo": "",
+	"basketAmount": "",
+	"basketCategories": "",
+	"pinCode": "",
+	"EAN128": "",
+	"bin": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "New testing activation API",
+    "amount": 20,
+    "barcodeNumber": "100110011001017750507",
+    "gencode": "Koaj_001",
+    "eGiftCardUrl": "https://dev.ogloba.com/eGiftCard/GY35e7A4gr",
+    "errorMessage": null,
+    "cardType": "0",
+    "errorCode": null,
+    "mobileNo": "",
+    "previousBalance": 0,
+    "physicalCardNumber": "999999900000001225173",
+    "isSuccessful": true,
+    "balance": 20,
+    "referenceNumber": "6036883901",
+    "internalProductCode": "",
+    "pinCode": "950",
+    "initialBalance": 0,
+    "currency": "COP",
+    "expireDate": "20251220",
+    "cardNumber": "100110011001017750507"
+}
+					</pre>
+				</li>
+				<li class="task-item2">Successful response, a new card was created and can be activated</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call confirmTransaction API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId":		"Koaj_store",
+   	"terminalId":		"001",
+  	"cashierId":		"001",
+	"referenceNumber":	"6036883901",
+	"note":				"testing confirmTransaction API by GIF (activation)"
+}
+
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": " ",
+    "pincode": "950",
+    "isSuccessful": true,
+    "balance": 20,
+    "referenceNumber": "6036883901",
+    "pointBalance": 0
+}
+					</pre>
+				</li>
+				<li class="task-item2">Transaction confirmed, card is now activated</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reconciliation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"businessDate": "20230619",
+	"reconciliationRecords": [{
+		"terminalTxNo": "0",
+		"lineCount": 1,
+		"terminalId": "001",
+		"cashierId": "001",
+		"transactionNumber": "1687233878",
+		"referenceNumber": "6036883901",
+		"transactionType": "A",
+		"gencode": "Koaj_001",
+		"cardNumber": "100110011001017750507",
+		"currency": "COP",
+		"amount": 20,
+		"balance": 20,
+		"handlingFee": 0,
+		"finalStatus": "Y"
+	}]
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "errorCode": null,
+    "errorMessage": null,
+    "isSuccessful": true,
+    "note": null,
+    "isSuccess": true
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba receive a reconciliation request and client receive a reconciliation response</li>
+			</ul>
+	</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+	<section class="test-two">
+		<div class="test-2">
+			<h2 class="subtitle">TEST 2</h2>
+			<p class="description">Card Redemption</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Redeem the previous card using the redemption API</li>
+				<li class="task-item2">
+					<pre>
+{
+   "merchantId": "Koaj_store",
+   "terminalId": "001",
+   "cashierId": "001",
+   "transactionNumber": "1687233878",
+   "gencode": "Koaj_001",
+   "cardNumber": "100110011001017750507",
+   "track2Data": "",
+   "amount": 10,
+   "note": "testing api by GIF",
+   "reason": "",
+   "validityDate": "",
+   "mobileNo": "",
+   "basketAmount": "",
+   "basketCategories": "",
+   "pinCode": "950",
+   "EAN128": "",
+   "bin": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "testing api by GIF",
+    "amount": 10,
+    "toBeChargedAmt": 0,
+    "gencode": "Koaj_001",
+    "redeemShareDet": [
+        {
+            "sharedAmt": 10,
+            "reloadSource": "0"
+        }
+    ],
+    "errorMessage": null,
+    "cardType": "0",
+    "errorCode": null,
+    "mobileNo": "",
+    "previousBalance": 20,
+    "isSuccessful": true,
+    "balance": 10,
+    "referenceNumber": "6071705685",
+    "internalProductCode": "",
+    "pinCode": "",
+    "initialBalance": 20,
+    "currency": "COP",
+    "expireDate": "20251220",
+    "isAutoConfirm": "0",
+    "cardNumber": "100110011001017750507"
+}
+					</pre>
+				</li>
+				<li class="task-item2">Successful response, 10 was dedupted to the initial balance, new balance should be 10</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call confirmTransaction API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+   	"terminalId": "001",
+  	"cashierId": "001",
+	"referenceNumber": "6071705685",
+	"note": "testing confirmTransaction API by GIF (redemption)"
+}
+
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": " ",
+    "pincode": "",
+    "isSuccessful": true,
+    "balance": 10,
+    "referenceNumber": "6071705685",
+    "pointBalance": 0
+}
+					</pre>
+				</li>
+				<li class="task-item2">Transaction confirmed</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reconciliation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"businessDate": "20230619",
+	"reconciliationRecords": [{
+		"terminalTxNo": "0",
+		"lineCount": 1,
+		"terminalId": "001",
+		"cashierId": "001",
+		"transactionNumber": "1687233878",
+		"referenceNumber": "6071705685",
+		"transactionType": "P",
+		"gencode": "Koaj_001",
+		"cardNumber": "100110011001017750507",
+		"currency": "COP",
+		"amount": 10,
+		"balance": 10,
+		"handlingFee": 0,
+		"finalStatus": "Y"
+	}]
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "errorCode": null,
+    "errorMessage": null,
+    "isSuccessful": true,
+    "note": null,
+    "isSuccess": true
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba receive a reconciliation request and client receive a reconciliation response</li>
+			</ul>
+		</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+	<section class="test-three">
+		<div class="test-3">
+			<h2 class="subtitle">TEST 3</h2>
+			<p class="description">Card Reload</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Reload the previous card using the reload API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"transactionNumber": "1687233878",
+	"gencode": "Koaj_001",
+	"cardNumber": "100110011001017750507",
+	"track2Data": "",
+	"amount": 10,
+	"note": "testing reload api by GIF",
+	"reason": "",
+	"validityDate": "",
+	"mobileNo": "",
+	"basketAmount": "",
+	"basketCategories": "",
+	"pinCode": "",
+	"EAN128": "",
+	"bin": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "testing reload api by GIF",
+    "amount": 10,
+    "gencode": "Koaj_001",
+    "errorMessage": null,
+    "cardType": "0",
+    "errorCode": null,
+    "mobileNo": "",
+    "previousBalance": 10,
+    "isSuccessful": true,
+    "balance": 20,
+    "referenceNumber": "6131117153",
+    "internalProductCode": "",
+    "pinCode": "",
+    "initialBalance": 20,
+    "currency": "COP",
+    "expireDate": "20251220",
+    "cardNumber": "100110011001017750507"
+}
+					</pre>
+				</li>
+				<li class="task-item2">Successful response, reload for 10 was success</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call confirmTransaction API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+   	"terminalId": "001",
+  	"cashierId": "001",
+	"referenceNumber": "6131117153",
+	"note": "testing confirmTransaction API by GIF (reload)"
+}
+
+
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": " ",
+    "pincode": "",
+    "isSuccessful": true,
+    "balance": 20,
+    "referenceNumber": "6131117153",
+    "pointBalance": 0
+}
+					</pre>
+				</li>
+				<li class="task-item2">Transaction confirmed</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reconciliation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"businessDate": "20230619",
+	"reconciliationRecords": [{
+		"terminalTxNo": "0",
+		"lineCount": 1,
+		"terminalId": "001",
+		"cashierId": "001",
+		"transactionNumber": "1687233878",
+		"referenceNumber": "6131117153",
+		"transactionType": "L",
+		"gencode": "Koaj_001",
+		"cardNumber": "100110011001017750507",
+		"currency": "COP",
+		"amount": 10,
+		"balance": 20,
+		"handlingFee": 0,
+		"finalStatus": "Y"
+	}]
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "errorCode": null,
+    "errorMessage": null,
+    "isSuccessful": true,
+    "note": null,
+    "isSuccess": true
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba receive a reconciliation request and client receive a reconciliation response</li>
+			</ul>
+		</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+	<section class="test-four">
+		<div class="test-optional">
+			<h2 class="subtitle">TEST 4 (Optional)</h2>
+			<p class="description">Query the transactions by a specific card number, an order number, a merchant, date period or other criteria</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the queryTransactionsHistory API</li>
+				<li class="task-item2">
+					<pre>
+{
+    "transType": "A",
+    "merchantId": "Koaj_store",
+    "pageNo": 1,
+    "cashierId": "001",
+    "terminalId": "001",
+    "cardNumber": "100110011001017750507",
+    "numberOfPage": 10
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "isSuccessful": true,
+    "transactionRecord": [
+        {
+            "merchantId": "Koaj_store",
+            "terminalId": "001",
+            "cashierId": "001",
+            "transactionTime": "2023-06-20 12:05:02",
+            "transactionType": "ACTIVATION",
+            "transactionNumber": "1687233878",
+            "referenceNumber": "6036883901",
+            "previousBalance": 0,
+            "transactionAmount": 20,
+            "balance": 20,
+            "cardNumber": "999999900000001225173",
+            "gencode": "Koaj_001",
+            "storeName": "Koaj_store",
+            "pinCode1": "950",
+            "pinCode2": "626",
+            "shortCardNumber": "100110011001017750507",
+            "transactionStatus": "Confirmed",
+            "txnTypeDet": 2,
+            "rowNumber": 1,
+            "totalRowCount": 1
+        }
+    ],
+    "pointTransactionRecord": []
+}
+					</pre>
+				</li>
+				<li class="task-item2">Successful response</li>
+			</ul>
+		</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+	<section class="test-error-one">
+		<div class="test-error-1">
+			<h2 class="subtitle">TEST ERROR ONE</h2>
+			<p class="description">Card activation Ogloba server timeout</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the activation API using 999999999 as a gencode</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"transactionNumber": "1687234087",
+	"gencode": "999999999",
+	"cardNumber": "",
+	"track2Data": "",
+	"amount": 20,
+	"note": "Testing timeout error",
+	"reason": "",
+	"validityDate": "",
+	"mobileNo": "",
+	"basketAmount": "",
+	"basketCategories": "",
+	"pinCode": "",
+	"EAN128": "",
+	"bin": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "barcodeNumber": "1000532904268273",
+    "isSuccessful": false,
+    "gencode": "999999999",
+    "internalProductCode": "",
+    "errorMessage": "This card cannot be used in this store",
+    "errorCode": "25",
+    "physicalCardNumber": "9999999122567164"
+}
+					</pre>
+				</li>
+				<li class="task-item2">ogloba take too much time, client get timeout</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reverse API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"originalMerchantId": "Koaj_store",
+	"originalTerminalId": "001",
+	"originalCashierId": "001",
+	"originalTransNumber": "1687234087",
+	"transactionNumber": "1687234087",
+	"reason": "",
+	"note": "",
+	"track2Data": "",
+	"cardNo": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "NoteFromDB",
+    "isSuccessful": true,
+    "handlingFee": 0,
+    "balance": 0,
+    "errorMessage": null,
+    "errorCode": null,
+    "previousBalance": 0
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba cancel the transaction, client receive a successful reverse response</li>
+			</ul>
+		</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+	<section class="test-error-two">
+		<div class="test-error-2">
+			<h2 class="subtitle">TEST ERROR TWO</h2>
+			<p class="description">card activation - Client aborts transaction after activation request</p>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the activation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"transactionNumber": "1687234340",
+	"gencode": "Koaj_001",
+	"cardNumber": "",
+	"track2Data": "",
+	"amount": 20,
+	"note": "Testing activation abort scenario",
+	"reason": "",
+	"validityDate": "",
+	"mobileNo": "",
+	"basketAmount": "",
+	"basketCategories": "",
+	"pinCode": "",
+	"EAN128": "",
+	"bin": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "Testing activation abort scenario",
+    "amount": 20,
+    "barcodeNumber": "100110011001640496676",
+    "gencode": "Koaj_001",
+    "eGiftCardUrl": "https://dev.ogloba.com/eGiftCard/IDB48g12xT",
+    "errorMessage": null,
+    "cardType": "0",
+    "errorCode": null,
+    "mobileNo": "",
+    "previousBalance": 0,
+    "physicalCardNumber": "999999900000001225199",
+    "isSuccessful": true,
+    "balance": 20,
+    "referenceNumber": "6401241289",
+    "internalProductCode": "",
+    "pinCode": "014",
+    "initialBalance": 0,
+    "currency": "COP",
+    "expireDate": "20251220",
+    "cardNumber": "100110011001640496676"
+}
+					</pre>
+				</li>
+				<li class="task-item2">Activation transaction is created in ogloba, client receives success response</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reverse API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"terminalId": "001",
+	"cashierId": "001",
+	"originalMerchantId": "Koaj_store",
+	"originalTerminalId": "001",
+	"originalCashierId": "001",
+	"originalTransNumber": "1687234340",
+	"transactionNumber": "1687234493",
+	"reason": "",
+	"note": "",
+	"track2Data": "",
+	"cardNo": ""
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "note": "Request Reversal",
+    "isSuccessful": true,
+    "handlingFee": 20,
+    "balance": 0,
+    "errorMessage": null,
+    "errorCode": null,
+    "previousBalance": 0
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba cancel the transaction, client receive a successful reverse response</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Description</li>
+				<li class="task-item">Request</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">Call the reconciliation API</li>
+				<li class="task-item2">
+					<pre>
+{
+	"merchantId": "Koaj_store",
+	"businessDate": "20230620",
+	"reconciliationRecords": [{
+		"terminalTxNo": "0",
+		"lineCount": 1,
+		"terminalId": "001",
+		"cashierId": "001",
+		"transactionNumber": "1687234340",
+		"referenceNumber": "6401241289",
+		"transactionType": "A",
+		"gencode": "Koaj_001",
+		"cardNumber": "100110011001640496676",
+		"currency": "COP",
+		"amount": 20,
+		"balance": 20,
+		"handlingFee": 0,
+		"finalStatus": "Y"
+	}]
+}
+					</pre>
+				</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item">Response</li>
+				<li class="task-item">Result</li>
+			</ul>
+			<ul class="task-list">
+				<li class="task-item2">
+					<pre>
+{
+    "errorCode": null,
+    "errorMessage": null,
+    "isSuccessful": true,
+    "note": null,
+    "isSuccess": true
+}
+					</pre>
+				</li>
+				<li class="task-item2">Ogloba receives a reconciliation request, client receive a successful response</li>
+			</ul>
+		</div>
+	</section>
+	<div class="split-line">
+		<div class="dots"></div>
+		<div class="dots"></div>
+		<div class="dots"></div>
+	</div>
+</body>
+</html>
